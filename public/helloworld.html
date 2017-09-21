@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>
+    hello world
+     </title>
+</head>
+<body>
+    <div id = "div1"></div>
+    <script>
+        //创建h1标签并加入文本hello world
+        var h1 = document.createElement("h1");
+        var node = document.createTextNode("hello world!");
+        h1.appendChild(node);
+
+        //获取到div1的句柄并加入h1标签
+        document.getElementById("div1").appendChild(h1);   
+    </script>
+</body>
+</html>
