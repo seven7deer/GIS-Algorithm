@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>
+    hello canvas
+    </title>
+</head>
+<body>
+    <div id = "div1"></div>
+    <script>
+        var canvas = document.createElement("canvas");
+        document.getElementById("div1").appendChild(canvas);
+        
+        //设置canvas的长和宽，注意长和宽的比例
+        canvas.width = 1000;
+        canvas.height = 1000;
+        
+        var ctx = canvas.getContext("2d");
+        
+        //绘制矩形1
+        ctx.fillStyle = "#000000";
+        ctx.fillRect(0,0,300,300);
+
+        //绘制矩形2
+        ctx.fillStyle = "#00FFFF";
+        ctx.fillRect(100,100,300,300);
+
+        //绘制直线1
+        ctx.beginPath();
+        ctx.strokeStyle = "#FFFF00";
+        ctx.moveTo(50,50);
+        ctx.lineTo(400,300);
+        ctx.stroke();
+       
+        //绘制直线2
+        ctx.beginPath();
+        ctx.strokeStyle = "#00BB00";
+        ctx.moveTo(90,200);
+        ctx.lineTo(300,400);
+        ctx.stroke();
+
+    </script>
+</body>
+</html>
