@@ -4,41 +4,81 @@
     <title>
     hello canvas
     </title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style>
+a{
+margin-left:25px;
+}	
+</style>
 </head>
-<body>
-    <div id = "div1"></div>
+<body >
+	<a>颜色：</a>
+	<select id="color" style = "width:70px;">
+		<option value ="red">Red</option>
+		<option value ="blue">Blue</option>
+		<option value="green">Green</option>
+		<option value="black">Black</option>
+		<option value="yellow">Yellow</option>
+	</select>
+	<a>宽度：</a>
+	<input id = "wid" style="width:30px;"/>
+	<a><button onclick="clearCanvas()">清空画布</button></a>
+    <div id = "div1" style = "border:1px solid #000;width:1300px;height:500px;margin:0 auto; margin-top:20px;"></div>
     <script>
         var canvas = document.createElement("canvas");
         document.getElementById("div1").appendChild(canvas);
-        
         //设置canvas的长和宽，注意长和宽的比例
-        canvas.width = 1000;
-        canvas.height = 1000;
-        
-        var ctx = canvas.getContext("2d");
-        
-        //绘制矩形1
-        ctx.fillStyle = "#000000";
-        ctx.fillRect(0,0,300,300);
-
-        //绘制矩形2
-        ctx.fillStyle = "#00FFFF";
-        ctx.fillRect(100,100,300,300);
-
-        //绘制直线1
-        ctx.beginPath();
-        ctx.strokeStyle = "#FFFF00";
-        ctx.moveTo(50,50);
-        ctx.lineTo(400,300);
-        ctx.stroke();
+        canvas.width = 1300;
+        canvas.height = 500;
        
-        //绘制直线2
-        ctx.beginPath();
-        ctx.strokeStyle = "#00BB00";
-        ctx.moveTo(90,200);
-        ctx.lineTo(300,400);
-        ctx.stroke();
-
+		var context = canvas.getContext("2d");
+		var paint;
+ 
+		//设置画笔
+		function setDrawPen()
+		{
+			var color = document.getElementById('color').value;
+			var wid = document.getElementById('wid').value;
+			context.strokeStyle = color;
+			context.lineWidth = parseInt(wid);
+		}
+		
+				
+		//清空画布
+		function clearCanvas()
+		{
+			context.clearRect(0,0,canvas.width,canvas.height);  
+		}
+		
+		//鼠标点击事件
+		canvas.onmousedown= function(e)
+		{ 
+			paint = true;
+			setDrawPen();
+			context.beginPath();
+			context.moveTo(e.pageX - this.offsetLeft - 0.5, e.pageY - this.offsetTop - 0.5);
+			//保证画一个点能看到
+			context.lineTo(e.pageX - this.offsetLeft, e.pageY - this.offsetTop);	
+			context.stroke();			
+		}
+		
+		//鼠标移动事件
+		canvas.onmousemove = function(e)
+		{
+			if(paint)
+			{
+				context.lineTo(e.pageX - this.offsetLeft, e.pageY - this.offsetTop);
+				context.stroke();
+			}
+		}
+		
+		//鼠标松开事件
+		canvas.onmouseup = function(e)
+		{
+			context.closePath();
+			paint = false;
+		}
+		
     </script>
 </body>
 </html>
