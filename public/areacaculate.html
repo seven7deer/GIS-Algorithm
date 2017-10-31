@@ -4,7 +4,7 @@
 <head>
     <title>地图面积</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts-all-3.js"></script>
+    <script type="text/javascript" src="javascript/echarts.js"></script>
 </head>
 
 <body>
@@ -95,11 +95,11 @@
         for (var i = 0; i < data.length - 1; i++) {
             var B1 = data[i][1] * Math.PI / 180;
             var B2 = data[i + 1][1] * Math.PI / 180;
-
             var L1 = data[i][0] * Math.PI / 180;
             var L2 = data[i + 1][0] * Math.PI / 180;
             var deta = B0 - (B1 + B2) / 2;
             var detam = ((B1 + B2) / 2 + B0) / 2;
+
             var K = 2 * a * a * (1 - e2) * (L2 - L1);
             var A = 1 + 1 / 2 * e2 + 3 / 8 * e2 * e2 + 5 / 16 * e2 * e2 * e2;
             var B = 1 / 6 * e2 + 3 / 16 * e2 * e2 + 3 / 16 * e2 * e2 * e2;
