@@ -16,7 +16,7 @@
     <br>
     <a>压缩数据 >></a>
     <a>输入压缩等级：</a>
-    <input id="number" style="height: 21px; width: 88px;" placeholder="1~10之内为佳" />
+    <input id="number" style="height: 21px; width: 88px;" placeholder="1800以上为佳" />
     <button onclick="CutDown=true;ShowMap()" style="height:27px;width:90px;margin-top: 6px;">压缩并显示</button>
     <a style="margin-left:18px">压缩率为：</a>
     <a id="result" style="color: red">未压缩</a>
@@ -77,11 +77,11 @@
                     if (city[0][0] == city[city.length - 1][0] || city[0][1] == city[city.length - 1][1]) {
                         var city1 = city.slice(0, k);
                         var city2 = city.slice(k, city.length);
-                        DouglasPeucker(city1, max * 0.01 * times);
-                        DouglasPeucker(city2, max * 0.01 * times);
+                        DouglasPeucker(city1, times);
+                        DouglasPeucker(city2, times);
                     }
                     else {
-                        DouglasPeucker(city, max * 0.01 * times);
+                        DouglasPeucker(city, times);
                     }
                     city = [];
                     cutdowndata.push("END");
