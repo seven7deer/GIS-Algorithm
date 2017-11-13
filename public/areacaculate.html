@@ -49,33 +49,38 @@
         reader.onload = function (e) {
             data = this.result;
             data = data.split('\r\n');
-            var citys = [[], [], [], [], [], [], [], [], [], [], [], [], []];
+            var nowcity = [];
             var number = 1;
+            var cityarea = [];
+            var area = 0;
+            var sum = 0;
             for (var i = 0; i < data.length; i++) {
                 var line = data[i];
+                if (data[i - 1] == "END" && line == "END")
+                    break;
                 if (line == "END") {
+                    if (type == "mercator")
+                        area = parseInt(PolygonArea(nowcity) / 1000000);
+                    else
+                        area = parseInt(geographyArea(nowcity) / 1000000);
+                    cityarea[number - 1] += area;
+                    sum += area;
                     continue;
                 }
                 var point = line.split(',');
                 if (point.length < 2) {
                     number = parseInt(line);
+                    area = 0;
+                    if (cityarea.length != number) {
+                        cityarea[number - 1] = 0;
+                    }
+
+                    nowcity = [];
                     if (isNaN(number))
                         break;
                     continue;
                 }
-                citys[number - 1].push(point);
-            }
-            var cityarea = [];
-            var sum = 0;
-            var area = 0;
-            for (var i = 0; i < citys.length; i++) {
-                var points = citys[i];
-                if (type == "mercator")
-                    area = parseInt(PolygonArea(points) / 1000000);
-                else
-                    area = parseInt(geographyArea(points) / 1000000);
-                cityarea.push(area);
-                sum += area;
+                nowcity.push(point);
             }
             showData(cityarea, sum);
         }
