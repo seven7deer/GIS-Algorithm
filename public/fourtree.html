@@ -56,14 +56,7 @@
             }
             return res;
         }
-        //二进制转十进制
-        function two2ten(x) {
-            var res = 0;
-            for (var i = 0; i < x.length; i++) {
-                res += x[i] * Math.pow(2, i);
-            }
-            return res;
-        }
+
         //i，j行列号转为值
         function rowcol2code(i, j, c) {
             var interval = rows / Math.pow(2, c);
@@ -72,27 +65,32 @@
 
             var x = ten2two(x);
             var y = ten2two(y);
-            if (x.length > y.length) {
-                var t = x.length - y.length;
-                for (var a = 0; a < t; a++) {
-                    y.push(0);
-                }
+            var d = rows;
+            var n = 0;
+            while (d != 1) {
+                d = d / 2;
+                n++;
             }
-            else {
-                var t = y.length - x.length;
-                for (var a = 0; a < t; a++) {
+
+            if (x.length < n) {
+                var xl = x.length;
+                for (var a = 0; a < n - xl; a++) {
                     x.push(0);
                 }
             }
-
-            var res = [];
-            for (var a = 0; a < x.length; a++) {
-                res.push(y[a]);
-                res.push(x[a]);
+            if (y.length < n) {
+                var yl = y.length;
+                for (var a = 0; a < n - yl; a++) {
+                    y.push(0);
+                }
             }
 
-            var number = two2ten(res);
-            return number;
+            var res = "";
+            for (var a = x.length - 1; a >= 0; a--) {
+                res += (2 * x[a] + y[a]).toString();
+            }
+
+            return res;
         }
 
         //x,y为左上角点的行列号，c为层数
