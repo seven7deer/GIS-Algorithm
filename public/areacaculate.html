@@ -88,13 +88,13 @@
 
     function geographyArea(data) {
         var T = 0;
-        var B0 = 90 * Math.PI / 180;
+        var B0 = 90;
         for (var i = 0; i < data.length; i++) {
-            var x = data[i][0];
-            var y = data[i][1];
-            data[i] = invMercatorXY(x, y);
+            var y = data[i][0];
+            var x = data[i][1];
+            data[i] = invMercatorXY(y, x);
             if (data[i][1] < B0)
-                B0 = data[i][i];
+                B0 = data[i][1];
         }
         B0 = B0 * Math.PI / 180;
         for (var i = 0; i < data.length - 1; i++) {
