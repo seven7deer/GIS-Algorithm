@@ -1,1 +1,2 @@
-# first
+GIS算法的课程作业，使用express框架
+以静态文件的形式，代码在public文件夹中的各html文件中
